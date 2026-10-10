@@ -16,21 +16,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch latest version from JSR
+      # The latest GitHub Release is the source of truth: Probitas 2+ attaches
+      # its binaries and SHA256SUMS there.
+      - name: Fetch latest version
         id: version
         run: |
-          VERSION=$(curl -fsSL "https://jsr.io/@probitas/probitas/meta.json" | jq -r '.latest')
+          url=$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/probitas-test/probitas/releases/latest)
+          VERSION="${url##*/tag/v}"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Latest version: $VERSION"
 
-      - name: Update Formula version
+      # Probitas 1.x is installed through its install.sh with Deno; only the
+      # version needs updating.
+      - name: Update Formula version (1.x)
+        if: startsWith(steps.version.outputs.version, '0.') || startsWith(steps.version.outputs.version, '1.')
         run: |
-          # Update version in Formula
-          sed -i 's/version "[^"]*"/version "${{ steps.version.outputs.version }}"/' Formula/probitas.rb
+          perl -pi -e 's/version "[^"]*"/version "${{ steps.version.outputs.version }}"/' Formula/probitas.rb
 
-          # Show the change
-          echo "Updated Formula:"
-          grep 'version "' Formula/probitas.rb
+      - name: Render binary Formula (2.x and later)
+        if: ${{ !startsWith(steps.version.outputs.version, '0.') && !startsWith(steps.version.outputs.version, '1.') }}
+        run: |
+          curl -fsSL "https://github.com/probitas-test/probitas/releases/download/v${{ steps.version.outputs.version }}/SHA256SUMS" -o "$RUNNER_TEMP/SHA256SUMS"
+          sh scripts/render-formula.sh "${{ steps.version.outputs.version }}" "$RUNNER_TEMP/SHA256SUMS" > Formula/probitas.rb
 
       - name: Check for changes
         id: changes
