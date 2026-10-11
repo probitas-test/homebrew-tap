@@ -6,28 +6,28 @@
 class Probitas < Formula
   desc "Scenario-based test and workflow execution framework CLI"
   homepage "https://github.com/probitas-test/probitas"
-  version "2.0.2"
+  version "2.0.3"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/probitas-test/probitas/releases/download/v2.0.2/probitas-darwin-arm64.tar.gz"
-      sha256 "5cbf874c9a6a1e2db27ac84b4d453a7012bbefb884f6eac83e9de0d09a816bc4"
+      url "https://github.com/probitas-test/probitas/releases/download/v2.0.3/probitas-darwin-arm64.tar.gz"
+      sha256 "b9b9132430dbf9bca5aaecb56946e474460696e0a04c2fc68590665dbfca1d0a"
     end
     on_intel do
-      url "https://github.com/probitas-test/probitas/releases/download/v2.0.2/probitas-darwin-x64.tar.gz"
-      sha256 "5b344e8d6665871b4718e73dd24dbaa78c509851a729be2fb7c680fbdbe98817"
+      url "https://github.com/probitas-test/probitas/releases/download/v2.0.3/probitas-darwin-x64.tar.gz"
+      sha256 "229a6597f0fe4a7aa9c53aca1caeb045fd5b310eaa5cf62fb5c752b060ff9173"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/probitas-test/probitas/releases/download/v2.0.2/probitas-linux-arm64.tar.gz"
-      sha256 "0a62991a7f725eb7de67c3ec174c764d35e6be7c8a293935a793af92a35221ac"
+      url "https://github.com/probitas-test/probitas/releases/download/v2.0.3/probitas-linux-arm64.tar.gz"
+      sha256 "d689b5f0f3cf61238446d5dafe13044a0702f3ba809c7c2179a7b7b9b2774e5f"
     end
     on_intel do
-      url "https://github.com/probitas-test/probitas/releases/download/v2.0.2/probitas-linux-x64.tar.gz"
-      sha256 "b588b7e3563af33a7eeb92862b46ab88ee952f68d4fb30f08f11eb91d5c6a62b"
+      url "https://github.com/probitas-test/probitas/releases/download/v2.0.3/probitas-linux-x64.tar.gz"
+      sha256 "80fcdd45f800f07f9eee5ee7d4ee4544ff2eca75b7e2a8cdf26e8d80539a29ce"
     end
   end
 
